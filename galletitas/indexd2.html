@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Devoluciones y Envios</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000000;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .tildes {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+        }
+        .listaDevoluciones {
+            margin-top: 20px;
+        }
+        .listaDevoluciones table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .listaDevoluciones th, .listaDevoluciones td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+        .listaDevoluciones th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Registro de Devoluciones</h1>
+    <form id="registroDevolucion">
+        <label for="nombreCliente">Nombre del Cliente:</label>
+        <input type="text" id="nombreCliente" required>
+
+        <label for="nombreProducto">Nombre del Producto:</label>
+        <input type="text" id="nombreProducto" required>
+
+        <label for="estadoPaquete">Estado del Paquete:</label>
+        <select id="estadoPaquete" required>
+            <option value="intacto">Intacto</option>
+            <option value="dañado">Dañado</option>
+            <option value="no recibido">No Recibido</option>
+        </select>
+
+        <label for="observaciones">Observaciones:</label>
+        <textarea id="observaciones" rows="4"></textarea>
+
+        <div class="tildes">
+            <label>
+                <input type="checkbox" id="verificado" required> Paquete Verificado
+            </label>
+            <label>
+                <input type="checkbox" id="noRotura" required> Confirmar que no se rompa
+            </label>
+        </div>
+
+        <button type="submit">Registrar Devolución</button>
+    </form>
+
+    <div class="listaDevoluciones">
+        <h2>Lista de Devoluciones</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre del Cliente</th>
+                    <th>Nombre del Producto</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody id="tablaDevoluciones"></tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    document.getElementById('registroDevolucion').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const nombreCliente = document.getElementById('nombreCliente').value;
+        const nombreProducto = document.getElementById('nombreProducto').value;
+        const estadoPaquete = document.getElementById('estadoPaquete').value;
+
+        const nuevaFila = document.createElement('tr');
+        nuevaFila.innerHTML = `
+            <td>${nombreCliente}</td>
+            <td>${nombreProducto}</td>
+            <td>${estadoPaquete}</td>
+        `;
+
+        document.getElementById('tablaDevoluciones').appendChild(nuevaFila);
+        
+        alert('Devolución registrada con éxito!');
+        
+        // Limpiar el formulario
+        document.getElementById('registroDevolucion').reset();
+    });
+</script>
+
+</body>
+</html>
